@@ -1,0 +1,16 @@
+nav{
+    position: sticky;
+    background-color: rgba(255, 255, 255, 0.5);
+    .button-link{
+        margin: 4px 10px;
+        background-color: transparent;
+        border: none;
+        transition: all .3s;
+        width: 80px;
+        &:hover{
+            //letter-spacing: .9px;
+        }
+
+
+    }
+}

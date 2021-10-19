@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+$font-primary: "Poppins", sans-serif;
+$font-secondary: "Open Sans", sans-serif;
+
+$color-green-1: #316064;
+$color-green-2: #4b908e;
+$color-green-3: #73c0b0;
+$color-green-4: #b8d7d5;
+
+$color1: #00203f;
+$color2: #adf0d1;
+$color3: #c1f7e0;
+
+$color-blue-1: hsl(205, 86%, 17%);
+$color-blue-2: hsl(205, 77%, 27%);
+$color-blue-3: hsl(205, 72%, 37%);
+$color-blue-4: hsl(205, 63%, 48%);
+$color-blue-5: hsl(205, 78%, 60%);
+$color-blue-6: hsl(205, 89%, 70%);
+$color-blue-7: hsl(205, 90%, 76%);
+$color-blue-8: hsl(205, 86%, 81%);
+$color-blue-9: hsl(205, 90%, 88%);
+$color-blue-10: hsl(205, 100%, 96%);
+
+//COLORS
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-secondary-light: #ffb900;
+$color-secondary-dark: #ff7730;
+
+$color-tertiary-light: #2998ff;
+$color-tertiary-dark: #5643fa;
+
+$color-grey-light-1: #f7f7f7;
+$color-grey-light-2: #eee;
+$color-grey-dark: #777;
+$color-grey-dark-2: #999;
+$color-grey-dark-3: #333;
+$color-white: #fff;
+$color-black: #000;
+
+$light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+$dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+//GRID
+$grid-width: 114rem;
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;
+$gutter-vertical-small: 6rem;
+
+//FONT
+$default-font-size: 1.6rem;
+
+$spacing: 0.4rem;
