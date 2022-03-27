@@ -41,7 +41,8 @@ function App() {
       joined: "",
    });
 
-   const BASE_URL = "https://desolate-coast-02851.herokuapp.com";
+   //const BASE_URL = "https://desolate-coast-02851.herokuapp.com";
+   const BASE_URL = "http://localhost:3000";
 
    useEffect(() => {
       resetState();
