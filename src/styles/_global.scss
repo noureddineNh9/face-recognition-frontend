@@ -1,9 +1,165 @@
+*,
+::after,
+::before {
+   margin: 0;
+   padding: 0;
+}
+html {
+   //defines what 1rem is
+   font-size: 62.5%; //1 rem = 10px
+}
 
+body {
+   margin: 0;
+   padding: 0;
+   font-family: $font-primary;
+   background-color: rgb(250, 250, 250);
+   font-size: 1.4rem;
 
-body{
-    margin: 0;
-    padding: 0;
-    font-family: $font-primary;
-    background-color: rgb(231, 255, 244);
+   &.modal__active {
+      overflow: hidden;
+   }
+}
 
+h1 {
+   font-size: 5rem !important;
+}
+h2 {
+   font-size: 3.2rem !important;
+}
+h3 {
+   font-size: 2.5rem !important;
+}
+h4 {
+   font-size: 2rem !important;
+}
+h5 {
+   font-size: 1.7rem !important;
+}
+h6 {
+   font-size: 15px !important;
+}
+
+p {
+   font-size: 1.4rem;
+}
+
+//***********************************
+
+.particles {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   z-index: -10;
+}
+
+.hide {
+   display: none;
+}
+
+.main {
+   padding: 60px 0;
+}
+
+.form-container {
+   max-width: 600px;
+   min-width: 300px;
+   display: flex;
+   padding: 30px 45px;
+   box-shadow: $dark-shadow;
+   border-radius: 9px;
+   background: linear-gradient(120deg, rgb(145, 218, 195), rgb(184, 235, 219));
+
+   input {
+      width: 100%;
+      border: none;
+      border-right: 2px solid rgb(145, 218, 195);
+   }
+   button {
+      padding: 3px 20px;
+      background-color: white;
+      color: rgb(145, 218, 195);
+      border: none;
+   }
+
+   button:active {
+      transform: scale(0.96);
+   }
+}
+
+.form__1 {
+   .form-input {
+      padding: 8px 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background: none;
+      transition: all 0.25s;
+      &:active,
+      &:focus {
+         outline: none;
+         box-shadow: none;
+         border-color: #000;
+         background-color: rgba(0, 0, 0, 0.05);
+      }
+   }
+}
+
+@keyframes scale {
+   0% {
+      transform: scale(0);
+   }
+   100% {
+      transform: scale(1);
+   }
+}
+
+.form__2 {
+   input[type="password"],
+   input[type="text"],
+   input[type="email"],
+   textarea {
+      padding: 8px 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background: none;
+      transition: all 0.25s;
+      &:active,
+      &:focus {
+         outline: none;
+         box-shadow: none;
+         border-color: #000;
+         background-color: rgba(0, 0, 0, 0.03);
+      }
+   }
+
+   input[type="submit"],
+   input[type="button"] {
+      padding: 5px 15px;
+      border: 1px solid black;
+      border-radius: 3px;
+      color: rgb(255, 255, 255);
+      transition: all 0.3s;
+      background-color: black;
+      cursor: pointer;
+
+      &:hover {
+         background-color: rgba(0, 0, 0, 0.95);
+      }
+   }
+}
+
+.button__1 {
+   padding: 5px 15px;
+   border: 1px solid black;
+   border-radius: 3px;
+   color: rgb(255, 255, 255);
+   transition: all 0.3s;
+   background-color: black;
+   &:hover {
+      background-color: rgba(0, 0, 0, 0.95);
+   }
 }

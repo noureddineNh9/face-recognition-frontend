@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
+import { BASE_URL } from "../api/api";
+
 function Register(props) {
    //const BASE_URL = "https://desolate-coast-02851.herokuapp.com";
-   const BASE_URL = "http://localhost:3000";
 
    const [formValue, setFormValue] = useState({
       email: "",
@@ -47,63 +48,55 @@ function Register(props) {
    };
 
    return (
-      <div
-         style={{
-            display: "flex",
-            justifyContent: "center",
-         }}
-      >
-         <article className="register-form">
-            <h3 className="text-center mb-5 mt-2">Register</h3>
+      <div className="flex justify-center">
+         <article
+            className="bg-white p-16 rounded-lg shadow-md"
+            style={{ width: "500px" }}
+         >
+            <h3 className="text-center mb-6 ">Register</h3>
             <form
-               className="mb-5"
+               className="form__1 mb-5"
                method="get"
                id="contactForm"
                name="contactForm"
             >
-               <div className=" form-group mb-3">
+               <div className="mb-6">
                   <input
                      onChange={onValueChange}
                      type="text"
-                     className="form-control"
+                     className="form-input"
                      name="name"
                      id="name"
                      placeholder="Your name"
                   />
                </div>
-               <div className=" form-group mb-3">
+               <div className="mb-6">
                   <input
                      onChange={onValueChange}
                      type="email"
-                     className="form-control"
+                     className="form-input"
                      name="email"
                      id="email"
                      placeholder="Your email"
                   />
                </div>
 
-               <div className="col-md-12 form-group mb-3">
+               <div className="mb-6">
                   <input
                      onChange={onValueChange}
                      type="password"
-                     className="form-control"
+                     className="form-input"
                      name="password"
                      id="password"
                      placeholder="Password"
                   />
                </div>
 
-               <div
-                  className=""
-                  style={{
-                     display: "flex",
-                     justifyContent: "center",
-                  }}
-               >
+               <div className="flex justify-center mt-8">
                   <button
                      onClick={onSubmit}
                      type="submit"
-                     className=" mt-3 _btn _btn--main _btn-sm btn--animated"
+                     className="button__1"
                   >
                      Register
                   </button>

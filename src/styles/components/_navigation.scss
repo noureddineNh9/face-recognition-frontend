@@ -1,14 +1,18 @@
 nav {
    position: sticky;
-   background-color: rgba(255, 255, 255, 0.5);
-   .button-link {
-      margin: 4px 10px;
+   background-color: white;
+   .nav__link {
       background-color: transparent;
       border: none;
       transition: all 0.3s;
-      width: 80px;
       &:hover {
          //letter-spacing: .9px;
+         text-decoration: underline;
       }
    }
+}
+
+.profileIcon {
+   width: 30px;
+   height: 30px;
 }

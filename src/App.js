@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import "./styles/main.scss";
+import { BASE_URL } from "./api/api";
+
 import Navigation from "./components/Navigation";
 import ImageLinkForm from "./components/ImageLinkForm";
 import Particles from "react-particles-js";
@@ -8,11 +9,13 @@ import FaceRecognition from "./components/FaceRecognition";
 import Register from "./components/Register";
 import Signin from "./components/Signin";
 import NotFoundImage from "./images/NotFound.png";
+import Modal from "./components/layouts/modal/modal.component.jsx";
+import Profile from "./components/profile/profile.component";
 
 const particlesOptions = {
    particles: {
       number: {
-         value: 30,
+         value: 20,
          density: {
             enable: true,
             value_area: 800,
@@ -32,7 +35,11 @@ function App() {
    const [imageUrl, setImageUrl] = useState(NotFoundImage);
    const [boundingBox, setBoundingBox] = useState("");
    const [isSignin, setIsSignin] = useState(false);
+   const [isProfileOpen, setIsProfileOpen] = useState(false);
    const [route, setRoute] = useState("signin");
+
+   const [isLoading, setIsLoading] = useState(true);
+
    const [user, setUser] = useState({
       id: "",
       name: "default",
@@ -41,11 +48,11 @@ function App() {
       joined: "",
    });
 
-   //const BASE_URL = "https://desolate-coast-02851.herokuapp.com";
-   const BASE_URL = "http://localhost:3000";
-
-   useEffect(() => {
+   useEffect(async () => {
+      await checkIfSignIn();
       resetState();
+
+      setIsLoading(false);
    }, []);
 
    function resetState() {
@@ -59,13 +66,41 @@ function App() {
       setInputValue(event.target.value);
    };
 
-   const loadUser = (data) => {
+   const checkIfSignIn = async () => {
+      const token = window.sessionStorage.getItem("token");
+      if (token) {
+         const res = await fetch(BASE_URL + "/signin", {
+            method: "POST",
+            headers: {
+               "Content-type": "application/json",
+               authorization: token,
+            },
+         });
+         const data = await res.json();
+         console.log(data);
+         if (data && data.id) {
+            await loadUser(data.id, token);
+            changeRoute("home");
+            console.log("success we need to get user profile");
+         }
+      }
+   };
+
+   const loadUser = async (id, token) => {
+      const res = await fetch(BASE_URL + "/profile/" + id, {
+         method: "GET",
+         headers: {
+            "Content-type": "application/json",
+            authorization: token,
+         },
+      });
+      const user = await res.json();
       setUser({
-         id: data.id,
-         name: data.name,
-         email: data.email,
-         entries: data.entries,
-         joined: data.joined,
+         id: user.id,
+         name: user.name,
+         email: user.email,
+         entries: user.entries,
+         joined: user.joined,
       });
    };
 
@@ -76,7 +111,10 @@ function App() {
 
       fetch(BASE_URL + "/imageurl", {
          method: "POST",
-         headers: { "Content-Type": "application/json" },
+         headers: {
+            "Content-Type": "application/json",
+            authorization: window.sessionStorage.getItem("token"),
+         },
          body: JSON.stringify({
             input: inputValue,
          }),
@@ -96,7 +134,10 @@ function App() {
 
             fetch(BASE_URL + "/image", {
                method: "PUT",
-               headers: { "Content-Type": "application/json" },
+               headers: {
+                  "Content-Type": "application/json",
+                  authorization: window.sessionStorage.getItem("token"),
+               },
                body: JSON.stringify({
                   id: user.id,
                }),
@@ -134,47 +175,69 @@ function App() {
       setRoute(route);
    };
 
+   const toggleModal = () => {
+      setIsProfileOpen(!isProfileOpen);
+      document.querySelector("body").classList.toggle("modal__active");
+   };
+
    return (
       <div className="App">
-         <Particles className="particles" params={particlesOptions} />
-         <Navigation isSignin={isSignin} changeRoute={changeRoute} />
-         <div className="main">
-            {route === "home" ? (
-               <>
-                  <div className=" text-center">
-                     <p
-                        style={{
-                           textJustify: "center",
-                        }}
-                     >
-                        This Magin Brain will detect faces in your pictures. Git
-                        it a try.
-                     </p>
-
-                     <br />
-                     <br />
-                     <h2>Welcome {user.name}</h2>
-                     <h4>entries : {user.entries}</h4>
-                  </div>
-
-                  <div className=" p-4 row justify-content-center">
-                     <ImageLinkForm
-                        onInputChange={onInputChange}
-                        onSubmit={onSubmit}
+         {isLoading ? (
+            <div className="h-screen flex justify-center items-center">
+               <h1>loading ...</h1>
+            </div>
+         ) : (
+            <>
+               {/* <Particles className="particles" params={particlesOptions} /> */}
+               <Navigation
+                  toggleModal={toggleModal}
+                  isSignin={isSignin}
+                  changeRoute={changeRoute}
+               />
+               {isProfileOpen && (
+                  <Modal>
+                     <Profile
+                        setUser={setUser}
+                        user={user}
+                        toggleModal={toggleModal}
                      />
-                  </div>
+                  </Modal>
+               )}
+               <div className="main">
+                  {route === "home" ? (
+                     <>
+                        <div className=" text-center">
+                           <p>
+                              This Magin Brain will detect faces in your
+                              pictures. Git it a try.
+                           </p>
+                           <br />
+                           <h2>Welcome {user.name}</h2>
+                           <h4>entries : {user.entries}</h4>
+                           <br />
+                        </div>
 
-                  <FaceRecognition
-                     imageUrl={imageUrl}
-                     boundingBox={boundingBox}
-                  />
-               </>
-            ) : route === "signin" ? (
-               <Signin loadUser={loadUser} changeRoute={changeRoute} />
-            ) : (
-               <Register loadUser={loadUser} changeRoute={changeRoute} />
-            )}
-         </div>
+                        <div className="flex justify-center ">
+                           <ImageLinkForm
+                              onInputChange={onInputChange}
+                              onSubmit={onSubmit}
+                           />
+                        </div>
+                        <br />
+
+                        <FaceRecognition
+                           imageUrl={imageUrl}
+                           boundingBox={boundingBox}
+                        />
+                     </>
+                  ) : route === "signin" ? (
+                     <Signin loadUser={loadUser} changeRoute={changeRoute} />
+                  ) : (
+                     <Register loadUser={loadUser} changeRoute={changeRoute} />
+                  )}
+               </div>
+            </>
+         )}
       </div>
    );
 }
